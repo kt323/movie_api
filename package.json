@@ -1,16 +1,22 @@
 {
   "name": "careerfoundry",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server-Side Programming & Node.js - Node.js Modules - Packages & Package Managers - Web Server Frameworks & Express - REST & API Endpoints - Relational Databases & SQL - Non-Relational Databases & MongoDB - Business Logic Layer - Authentication & Authorization - Data Security, Validation & Ethics",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
