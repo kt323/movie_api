@@ -4,7 +4,10 @@ const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
+const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -95,20 +98,31 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
         });
 });
 
-app.post('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    await users.findOne({ username: req.body.username})
-        .then((user) => {
+app.post('/users', [
+    check('username', 'username is required!').isLength({min: 3}),
+    check('username', 'username contains non alphanumericcharacters - not allowed.').isAlphanumeric(),
+    check('email', 'email does not appear to be valid').isEmail(),
+    ], async (req, res) => {
+        let errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array()});
+        }
+
+        let hashedPassword = users.hashPassword(req.body.password);
+            await users.findOne({ username: req.body.username})
+            .then((user) => {
             if (user) {
                 return res.status(400).send(req.body.username + 'already exists');
             } else {
                 users.create({
                     username: req.body.username,
-                    password: req.body.password,
+                    password: hashedPassword,
                     email: req.body.email,
                     birthday: req.body.birthday
                     })
                     .then((user) => {
-                        res.status(201).json(user);
+                        res.status(201).json(user)
                     })
                     .catch((error) => {
                         console.error(error);
@@ -200,9 +214,16 @@ app.delete('/users/:username/movies/:id', passport.authenticate('jwt', { session
     });
 });
 
+app.use(express.static('public'));
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke');
+});
 
 // listen for requests
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
 
