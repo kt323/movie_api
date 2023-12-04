@@ -23,7 +23,7 @@ const movies = Models.movie;
 const users = Models.user;
 
 
-mongoose.connect('mongodb://localhost:27017/movie_api', { 
+mongoose.connect('mongodb+srv://kt23:Gelatoniwing%4023@movie.eykysra.mongodb.net/?retryWrites=true&w=majority', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
 });
