@@ -23,7 +23,7 @@ const movies = Models.movie;
 const users = Models.user;
 
 
-mongoose.connect('mongodb+srv://kt23:Gelatoniwing%4023@movie.eykysra.mongodb.net/?retryWrites=true&w=majority', { 
+mongoose.connect('process.env.CONNECT_URI', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
 });
