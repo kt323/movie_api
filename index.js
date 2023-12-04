@@ -23,7 +23,7 @@ const movies = Models.movie;
 const users = Models.user;
 
 
-mongoose.connect('mongodb://localhost:27017/cdDB', { 
+mongoose.connect('mongodb://localhost:27017/movie_api', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
 });
