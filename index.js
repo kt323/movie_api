@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
-require('dotenv').config();
-
 
 let allowedOrigins = ['http://localhost:8080'];
 
@@ -37,16 +35,12 @@ const Models = require('./models.js');
 const movies = Models.movie;
 const users = Models.user;
 
-console.log('Before MongoDB Connection');
 console.log('MongoDB Connection URI:', process.env.CONNECT_URI);
 
-mongoose.connect(process.env.CONNECT_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+mongoose.connect(process.env.CONNECT_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
 });
-
-console.log('After MongoDB Connection');
-
 
 app.get('/', (req, res) => {
     res.send('Welcome to MyMovies!');
