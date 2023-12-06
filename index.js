@@ -37,7 +37,7 @@ const users = Models.user;
 
 console.log('MongoDB Connection URI:', process.env.CONNECT_URI);
 
-mongoose.connect(process.env.CONNECT_URI, { 
+mongoose.connect('mongodb+srv://kt23:Gelatoniwing%4023@movie.eykysra.mongodb.net/retryWrites=true&w=majority', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
 });
