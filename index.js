@@ -35,6 +35,7 @@ const Models = require('./models.js');
 const movies = Models.movie;
 const users = Models.user;
 
+console.log('MongoDB Connection URI:', process.env.CONNECT_URI);
 
 mongoose.connect(process.env.CONNECT_URI, { 
     useNewUrlParser: true, 
