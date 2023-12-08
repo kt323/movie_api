@@ -18,19 +18,19 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type:String, required: true},
-    email: {type: String, required: true},
-    birthday: Date,
-    favoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie' }]
+    Username: {type: String, required: true},
+    Password: {type:String, required: true},
+    Email: {type: String, required: true},
+    Birthday: Date,
+    FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie' }]
 });
 
 userSchema.statics.hashPassword = (password) => {
     return bcrypt.hashSync(password, 10);
 };
 
-userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+userSchema.methods.validatePassword = function(Password) {
+    return bcrypt.compareSync(Password, this.Password);
 };
 
 let movie = mongoose.model('movie', movieSchema);

@@ -37,7 +37,7 @@ const users = Models.user;
 
 console.log('MongoDB Connection URI:', process.env.CONNECT_URI);
 
-mongoose.connect('mongodb+srv://kt23:Gelatoniwing%4023@movie.eykysra.mongodb.net/retryWrites=true&w=majority', { 
+mongoose.connect('mongodb+srv://kt23:Gelatoniwing%4023@movie.eykysra.mongodb.net/movie_api?retryWrites=true&w=majority', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
 });
@@ -113,9 +113,9 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 app.post('/users', [
-    check('username', 'username is required!').isLength({min: 3}),
-    check('username', 'username contains non alphanumericcharacters - not allowed.').isAlphanumeric(),
-    check('email', 'email does not appear to be valid').isEmail(),
+    check('Username', 'username is required!').isLength({min: 3}),
+    check('Username', 'username contains non alphanumericcharacters - not allowed.').isAlphanumeric(),
+    check('Email', 'email does not appear to be valid').isEmail(),
     ], async (req, res) => {
         let errors = validationResult(req);
 
@@ -123,17 +123,17 @@ app.post('/users', [
             return res.status(422).json({ errors: errors.array()});
         }
 
-        let hashedPassword = users.hashPassword(req.body.password);
-            await users.findOne({ username: req.body.username})
+        let hashedPassword = users.hashPassword(req.body.Password);
+            await users.findOne({ Username: req.body.Username})
             .then((user) => {
             if (user) {
                 return res.status(400).send(req.body.username + 'already exists');
             } else {
                 users.create({
-                    username: req.body.username,
-                    password: hashedPassword,
-                    email: req.body.email,
-                    birthday: req.body.birthday
+                    Username: req.body.Username,
+                    Password: hashedPassword,
+                    Email: req.body.Email,
+                    Birthday: req.body.Birthday
                     })
                     .then((user) => {
                         res.status(201).json(user)
