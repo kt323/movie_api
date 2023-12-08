@@ -80,7 +80,7 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
     });
     
 app.get('/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    await movies.findOne({ title: req.params.title})
+    await movies.findOne({ Title: req.params.title})
         .then((movie) => {
             res.json(movie);
         })
