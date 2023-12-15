@@ -151,16 +151,14 @@ app.post('/users', [
 });
 
 app.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-   if(req.user.username !== req.params.username){
-        return res.status(400).send('Permission denied');
-   }
-    await users.findOneAndUpdate({ username: req.params.username }, {
+  
+    await users.findOneAndUpdate({ Username: req.params.username }, {
         $set:
         {
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            birthday: req.body.birthday,
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
         }
     },
         { new: true })
@@ -174,10 +172,8 @@ app.put('/users/:username', passport.authenticate('jwt', { session: false }), as
 });
 
 app.delete('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    if(req.user.username !== req.params.username){
-        return res.status(400).send('Permission denied');
-    }
-    await users.findOneAndDelete({username: req.params.username})
+    
+    await users.findOneAndDelete({Username: req.params.username})
         .then((user) => {
             if (!user) {
                 res.status(400).send(req.params.username + ' was not found');
@@ -191,42 +187,46 @@ app.delete('/users/:username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-//CREATE
-app.post('/users/:id/:movieTitle', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    if(req.user.username !== req.params.id){
-        return res.status(400).send('Permission denied');
-    }
+// CREATE
+app.post('/users/:username/movies/:movieId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username, movieId } = req.params;
 
-    await users.findOneAndUpdate({ username: req.params.id}, {
-        $push: { favoriteMovies: req.params.id }
-    },
-    { new: true })
-    .then((updatedUser) => {
+    try {
+        const updatedUser = await users.findOneAndUpdate(
+            { Username: username }, 
+            { $push: { FavoriteMovies: movieId } },
+            { new: true }
+        );
         res.json(updatedUser);
-    })
-    .catch((err) => {
+    } catch (err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
-    });
+    }
 });
 
-//DELETE
-app.delete('/users/:username/movies/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    if(req.user.username !== req.params.id) {
-        return res.status(400).send('Permission denied');
-    }
-    await users.findOneAndUpdate({ username: req.params.id }, {
-        $pull: { favoriteMovies: req.params.id }
-    },
-    { new: true })
-    .then((updatedUser) => {
+
+// DELETE
+app.delete('/users/:username/movies/:movieId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username, movieId } = req.params;
+
+    try {
+        const updatedUser = await users.findOneAndUpdate(
+            { Username: username }, 
+            { $pull: { FavoriteMovies: movieId } },
+            { new: true }
+        );
+        
+        if (!updatedUser) {
+            return res.status(404).send(`User ${username} not found.`);
+        }
+
         res.json(updatedUser);
-    })
-    .catch((err) => {
+    } catch (err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
-    });
+    }
 });
+
 
 app.use(express.static('public'));
 
