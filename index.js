@@ -7,8 +7,7 @@ const app = express();
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['http://localhost:8080', 'https://65a88db95d71f72250cb04df--benevolent-basbousa-11331e.netlify.app', 'http://localhost:1234'];
-
+let allowedOrigins = ['http://localhost:8080', 'https://lighthearted-meerkat-053212.netlify.app', 'https://65ada96d3181fab552d2b10a--lighthearted-meerkat-053212.netlify.app', 'http://localhost:1234'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
