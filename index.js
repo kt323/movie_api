@@ -7,7 +7,7 @@ const app = express();
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['http://localhost:8080', 'https://lighthearted-meerkat-053212.netlify.app', 'https://65ada96d3181fab552d2b10a--lighthearted-meerkat-053212.netlify.app', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'https://cf-myflix-client.netlify.app', 'https://api.netlify.com/api/v1/badges/109bd433-80de-4a7f-8a74-16837584fc8d/deploy-status', 'http://localhost:1234'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
