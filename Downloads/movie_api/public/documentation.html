@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMovies Documentation</title>
+  </head>
+  <body>
+    <h1>MyMovies App</h1>
+
+    <p>This application will empower users to explore a rich database of 
+        movies, directors, and genres. Users can register, manage their 
+        profile details, and curate a personalized collection of favorite movies.</p>
+  
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Endpoint</th>
+              <th>HTTP Method</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>/movies</td>
+              <td>GET</td>
+              <td>Returns all movies.</td>
+            </tr>
+            <tr>
+              <td>/users</td>
+              <td>GET</td>
+              <td>Returns all users.</td>
+            </tr>
+            <tr>
+              <td>/movies/:Title</td>
+              <td>GET</td>
+              <td>Returns a movie based on the provided title.</td>
+            </tr>
+            <tr>
+              <td>/movies/genres/:genreName</td>
+              <td>GET</td>
+              <td>Returns movies based on the provided genre name.</td>
+            </tr>
+            <tr>
+              <td>/movies/directors/:directorName</td>
+              <td>GET</td>
+              <td>Returns data from a director based on the provided name.</td>
+            </tr>
+            <tr>
+              <td>/users</td>
+              <td>POST</td>
+              <td>Allows new users to register.</td>
+            </tr>
+            <tr>
+              <td>/users/:Username</td>
+              <td>PUT</td>
+              <td>Allows users to update their information (username, password, email, birthday).</td>
+            </tr>
+            <tr>
+              <td>/users/:Username/movies/:MovieID</td>
+              <td>POST</td>
+              <td>Allows users to add movies to their favorites list.</td>
+            </tr>
+            <tr>
+              <td>/users/:Username/movies/:MovieID</td>
+              <td>DELETE</td>
+              <td>Allows users to remove a movie from their favorites list.</td>
+            </tr>
+            <tr>
+              <td>/users/:Username</td>
+              <td>DELETE</td>
+              <td>Allows users to delete their registration.</td>
+            </tr>
+            <tr>
+              <td>/</td>
+              <td>GET</td>
+              <td>Returns a simple text message.</td>
+            </tr>
+          </tbody>
+        </table>
+        
+      
+  </body>
+  </html>
+  
